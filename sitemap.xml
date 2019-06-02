@@ -3,17 +3,29 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://poriya.ir/posts/i-am-here/</loc>
+    <lastmod>2019-06-02T21:12:10+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://poriya.ir/posts/</loc>
+    <lastmod>2019-06-02T21:12:10+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://poriya.ir/</loc>
+    <lastmod>2019-06-02T21:12:10+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://poriya.ir/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://poriya.ir/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://poriya.ir/</loc>
     <priority>0</priority>
   </url>
   
