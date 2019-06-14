@@ -3,14 +3,36 @@
 <head>
 <title>Poriya Mokhtari Homepage</title>
 <meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+<style>
+body {
+	font-family: 'Open Sans', sans-serif;
+	max-width: 700px;
+	margin: 0 auto;
+	line-height: 1.7em;
+	background-color: #fbfbfb;
+	color: #444;
+}
+</style>
 </head>
 <body>
 <h1>You've reached Poriya Mokhtari's homepage</h1>
 <h3>a Computer Science student</h3>
 <p>Contact Email:  me [at] poriya.ir</p>
+<a href="#" onclick="nightmode()"><span>Night mode</span></a>
+<script>
+function nightmode() {
+	document.body.style.backgroundColor = "#444";
+	document.body.style.color = "white";
+	var links = document.getElementsByTagName("a");
+	for(var i = 0; i < links.length; i++) {
+		links[i].style.color = "yellow";
+	}
+}
+</script>
 <hr>
 
-<h2>log: What I'm Busy with </h2>
+<h2>Log: What I'm Busy with </h2>
 
 <h3>I'm trying to make a markdown parser in pure C</h3>
 <p>Sat 15 Jun 2019 01:56:15 AM</p>
