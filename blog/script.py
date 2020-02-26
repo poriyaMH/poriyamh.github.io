@@ -8,6 +8,7 @@ import sys
 import os
 import fileinput
 
+ADDRESS = 'https://pouriamokhtari.ir/blog'
 MARKDOWN_DIR = './markdown'
 HTML_DIR = './post'
 TEMPLATES_DIR = './templates'
@@ -32,7 +33,7 @@ def make_index():
     posts_html_links = ''
 
     for filename in post_list:
-        posts_html_links += f'<li><a href="post/{filename}">{filename}</a></li>'
+        posts_html_links += f'<li><a href="{ADDRESS}post/{filename}">{filename}</a></li>'
 
     # Copy the template
     with open(INDEX, 'w') as index:
@@ -73,6 +74,7 @@ def generate_post(filename):
         text = output.read()
     text = text.replace('{{title}}', title)
     text = text.replace('{{content}}', html)
+    text = text.replace('{{address}}', ADDRESS)
 
     # Write the text back
     with open(HTML_DIR + '/' + filename + ".html", 'w') as output:
