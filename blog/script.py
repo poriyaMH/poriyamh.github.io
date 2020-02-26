@@ -31,7 +31,7 @@ def make_index():
     posts_html_links = ''
 
     for filename in post_list:
-        posts_html_links += f'<li><a href="{ADDRESS}post/{filename}">{filename}</a></li>'
+        posts_html_links += f'<li><a href="{ADDRESS}/post/{filename}">{filename}</a></li>'
 
     # Copy the template
     with open(INDEX, 'w') as index:
