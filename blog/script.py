@@ -16,8 +16,6 @@ INDEX = './index.html'
 
 post_list = os.listdir(HTML_DIR)
 
-title = 'test' # TODO:fix
-
 try:
     import markdown
 except ModuleNotFoundError:
@@ -72,7 +70,7 @@ def generate_post(filename):
     # Replace the variables
     with open(HTML_DIR + '/' + filename + ".html") as output:
         text = output.read()
-    text = text.replace('{{title}}', title)
+    text = text.replace('{{title}}', filename)
     text = text.replace('{{content}}', html)
     text = text.replace('{{address}}', ADDRESS)
 
