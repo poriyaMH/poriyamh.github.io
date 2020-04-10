@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>pouria mokhtari</title>
-<meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-<style>
-body {
-	font-family: 'Open Sans', sans-serif;
-	max-width: 700px;
-	margin: 0 auto;
-	line-height: 1.7em;
-	background-color: #fbfbfb;
-	color: #444;
-}
-</style>
+	<title>Pouria Mokhtari</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-<h1>pouria mokhtari's hompage</h1>
-<h3>just another internet user</h3>
-<p>Contact Email:  contact [at] pouriamokhtari.ir</p>
-<a href="#" onclick="nightmode()"><span>Night mode</span></a>
-<a href="https://github.com/pomokhtari" target="_blank">Github</a>
-<a href="https://twitter.com/pomokhtari" target="_blank">Twitter</a>
-<a href="slides" target="_blank">Presentation Slides</a>
-<script>
-function nightmode() {
-	document.body.style.backgroundColor = "#444";
-	document.body.style.color = "white";
-	var links = document.getElementsByTagName("a");
-	for(var i = 0; i < links.length; i++) {
-		links[i].style.color = "yellow";
-	}
-}
-</script>
-<img style="width:700px;height:300px"alt="header" src="https://picsum.photos/700/300/" >
-<p>Copyright &copy; 2020</p>
+<div class="container">
+	<header>
+		<h1 class="h2 mt-4 mb-4">
+			Pouria Mokhtari
+			<small class="text-muted">Software Engineering Student</small>
+		</h1>
+	</header>
+	<p class="lead">Email:  contact [at] pouriamokhtari.ir</p>
+	<ul class="nav">
+		<li class="nav-item">
+			<a target="_blank" class="nav-link active"
+				href="https://github.com/pomokhtari">Github</a>
+		</li>
+		<li class="nav-item">
+			<a target="_blank" class="nav-link" href="https://gitlab.com/pomokhtari">Gitlab</a>
+		</li>
+		<li class="nav-item">
+			<a target="_blank" class="nav-link" href="https://twitter.com/pomokhtari">Twitter</a>
+		</li>
+	</ul>
+	<img alt="header" class="img-fluid" src="https://picsum.photos/1140/300/" >
+
+	<h2 class="mt-4 mb-4">Projects</h2>
+	<ul class="nav flex-column mb-4">
+		<li class="nav-item">
+			<a class="nav-link active" href="https://pouriamokhtari.ir/rust-book-fa/">Persian Translation of the
+				Learn Rust book</a>
+		</li>
+	</ul>
+
+	<footer>
+		<p>Copyright &copy; 2020</p>
+	<footer>
+</div>
 </body>
 </html>
