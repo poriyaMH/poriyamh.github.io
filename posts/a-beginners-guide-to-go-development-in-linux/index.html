@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en-us">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>A Beginners Guide to Go Development in Linux | Pouria</title>
+
+
+
+<link href="https://pouriamokhtari.ir/index.xml" rel="alternate" type="application/rss+xml" title="Pouria" />
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://pouriamokhtari.ir/posts/a-beginners-guide-to-go-development-in-linux/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://pouriamokhtari.ir/">
+          <h1 id="nav-heading" class="title is-4">Pouria</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">May 31, 2020</h2>
+    <h1 class="title">A Beginners Guide to Go Development in Linux</h1>
+    
+    <div class="content">
+      <p>This is a guide to get started with a comfortable workspace that helps you focus (mostly) on your code and the learning curve of development with Go. This is not at all a professional&rsquo;s guide, it&rsquo;s merely to be used as a way to avoid the confusions of conventions and the Go way of doing things and get started dealing with the actual programming concepts.</p>
+<p><strong>Update</strong>: I would like to thank people over at Reddit for pointing out a couple of obsolete tools recommended in this post. Thanks Chiodood, tv64738.</p>
+<p>You will need some basic terminal knowledge to use this. Also you need to have Go installed on your system. If you don&rsquo;t have Go installed <a href="https://golang.org/doc/install">You should read here</a>.</p>
+<h3 id="packages">Packages</h3>
+<p>In Go, software is stored as packages. Packages are actually just a bunch of source files defining stuff. Packages might use other packages as dependencies. Your program, being a package, has it&rsquo;s source files and dependencies too.</p>
+<h3 id="modules">Modules</h3>
+<p>Newer tools and compilers (&gt;=1.11) Introduce modules that can be used as a dependency management system and a way to organize code. A module includes one or more packages. It uses a file called <code>go.mod</code> to define the paths to your packages as well as other required packages. It is a nice way of doing things. So if you&rsquo;re using a newer version (which you should) you should learn to use it.</p>
+<p>To initialize a new module run something like this in a project directory outside your GOPATH:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+go mod init gitlab.com/example/project
+
+</code></pre></div><p>This makes a new go.mod file in the current directory. Go modules are still evolving. We will talk a bit about dependency management with modules later on.</p>
+<p>Note: All your code should always be in either inside a module or <code>GOPATH</code>. Do not put Go code anywhere else.</p>
+<h3 id="gopath">GOPATH</h3>
+<p><strong>Update</strong>: <code>GOPATH</code> is the old way of keeping packages. The new module system should be used instead for a better management of source code.  Some projects still use it though so If you&rsquo;re curious about how things used to be, or should the need arise to work with one of these packages you might want to continue reading. Otherwise, it&rsquo;s OK to just skip this section and jump to &ldquo;Compiler&rdquo;.</p>
+<p>Go used to store all files in <code>GOPATH</code>. A directory containing source code and possibly binary form of packages. It typically defaults to a directory named <code>go</code> inside your home directory. You can change this path.</p>
+<p>The recommended way is to export an environmental variable <code>GOPATH</code>. the <code>go</code> tool, holds this variable. You can view or change it using the following commands:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+go env GOPATH <span style="color:#75715e"># view the current GOPATH</span>
+
+go env -w GOPATH<span style="color:#f92672">=</span>$HOME/my/favorite/path <span style="color:#75715e"># change it</span>
+
+</code></pre></div><p>To make your shell aware of this variable you must enter the following in your <code>.bashrc</code>/<code>.zshrc</code>/etc. as well:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+export GOPATH<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>go env GOPATH<span style="color:#66d9ef">)</span>
+
+	<span style="color:#e6db74">```</span>
+
+	GOPATH contains multiple directories. For example code goes in the <span style="color:#e6db74">`</span>src<span style="color:#e6db74">`</span> directory <span style="color:#66d9ef">while</span> binary builds go in <span style="color:#e6db74">`</span>bin<span style="color:#e6db74">`</span>. Also there is <span style="color:#e6db74">`</span>pkg<span style="color:#e6db74">`</span> that contains compiled bits of your source code. But don<span style="color:#e6db74">&#39;t get yourself concerned over these. They will be created automatically if necessary. However, you might want to add `bin` to your PATH at some point:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">	```bash
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">	export PATH=$(go env GOPATH)/bin:$PATH
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">	```
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">### Compiler
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">	I don&#39;</span>t recommend using gccgo. The <span style="color:#e6db74">&#34;official&#34;</span> Go compiler offers several tools that are considered mainstream in the community. I would also suggest avoiding an old compiler like the ones shipped with Debian or any other frozen GNU/Linux distribution.
+
+	Once you start to get the hang of it you can use whatever makes you happy though.
+
+<span style="color:#75715e">### Storing Your Project</span>
+
+	It is also customary and maybe even expected to put all your <span style="color:#e6db74">`</span>.go<span style="color:#e6db74">`</span> source code files in the root directory of your project. If you<span style="color:#e6db74">&#39;re using go modules, you can put your project directory anywhere you want. Just make sure that it includes a `go.mod` file and your source code.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">	However if one uses `GOPATH`, one&#39;</span>s project should rest at <span style="color:#e6db74">`</span>$GOPATH/src<span style="color:#e6db74">`</span>, in it<span style="color:#e6db74">&#39;s own directory. If you&#39;</span>re using a version control system and a remote storage <span style="color:#66d9ef">for</span> your code things might get a little different. For example, <span style="color:#66d9ef">if</span> you use gitlab.com, you should store your project this way:
+
+	<span style="color:#e6db74">```</span>
+
+	$GOPATH/src/gitlab.com/username/projectname/
+
+	<span style="color:#e6db74">```</span>
+
+	This is a convention because it makes importing and referencing downloaded packages easier.
+
+<span style="color:#75715e">### go get</span>
+
+	A utility to use <span style="color:#66d9ef">for</span> fetching Go packages. You give it an address, it clones the repository at that address , puts it in <span style="color:#e6db74">`</span>$GOPATH/src<span style="color:#e6db74">`</span> builds it and <span style="color:#66d9ef">then</span> puts the resulting binary file in <span style="color:#e6db74">`</span>$GOPATH/bin<span style="color:#e6db74">`</span>. If that package has dependencies, it will <span style="color:#66d9ef">do</span> this <span style="color:#66d9ef">for</span> them as well.
+
+<span style="color:#75715e">### Dependencies</span>
+
+	<span style="color:#e6db74">`</span>go get<span style="color:#e6db74">`</span> does try to handle dependencies, But it is far from perfect. Go modules handles your dependencies as well. All you have to <span style="color:#66d9ef">do</span> is to set it up. And start importing new packages in the source code. Then run <span style="color:#e6db74">`</span>go build<span style="color:#e6db74">`</span> or <span style="color:#e6db74">`</span>go install<span style="color:#e6db74">`</span> to have Go modules fetch all the required packages <span style="color:#66d9ef">for</span> you and <span style="color:#66d9ef">do</span> the requested operation <span style="color:#f92672">(</span>building or installing<span style="color:#f92672">)</span>.
+
+	If you are using <span style="color:#e6db74">`</span>GOPATH<span style="color:#e6db74">`</span> you might want to try <span style="color:#f92672">[</span>dep<span style="color:#f92672">](</span>https://golang.github.io/dep/<span style="color:#f92672">)</span>. It<span style="color:#e6db74">&#39;s got it&#39;</span>s share of problems but overall, it works as expected.
+
+<span style="color:#75715e">### Building</span>
+
+	It<span style="color:#e6db74">&#39;s easy. Just navigate to a package directory and run `go build`. It takes all .go source files in the current directory and all dependencies, compiles them, links the resulting files and outputs a binary named after the directory containing the package. There is no difference when building a dep managed project.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">## Installation
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">	run `go install` to make a binary and put it in your `bin` directory. If you add this to `PATH`, you can use the built executable like an installed package.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">### Conclusion
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">	Hopefully, this guide is enough to get you started if you come from a C or Python background. The rest is up to you. You can always read further into documentations of packages and Go itself to learn more about the standard workflow.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">	More read on [Go Modules](https://blog.golang.org/using-go-modules) and [GOPATH](https://golang.org/doc/gopath_code.html).
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">	Please note that I&#39;</span>m in no way an expert in anything. So <span style="color:#66d9ef">if</span> you think there are any mistakes in this guide or <span style="color:#66d9ef">if</span> you have anything to say, please drop me an email: contact@pouriamokhtari.ir.
+
+</code></pre></div>
+      
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; 2020</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+
